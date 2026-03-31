@@ -1,0 +1,2363 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>قوافل الخير - استيراد المواد الخام</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================
+       DESIGN TOKENS — Deep Teal Palette
+    ============================================ */
+    :root {
+      --background:        #f4f7f7;
+      --foreground:        #0e2c2c;
+      --foreground-2:      #0d2b2b;
+      --foreground-3:      #0f2d2d;
+      --muted:             #e6eeee;
+      --muted-2:           #d0e0e0;
+      --muted-foreground:  #555555;
+      --muted-foreground-2:#808080;
+      --accent:            #0e2c2c;
+      --accent-mid:        #0f2d2b;
+      --accent-light:      #1a4444;
+      --accent-lighter:    #245555;
+      --accent-foreground: #ffffff;
+      --border:            #c8d8d8;
+      --border-dark:       #a0b8b8;
+      --card:              #ffffff;
+      --ring:              #0e2c2c;
+
+      --gradient:   linear-gradient(135deg, #0e2c2c, #245555);
+      --gradient-r: linear-gradient(to left,  #0e2c2c, #245555);
+      --gradient-h: linear-gradient(to right, #0e2c2c, #245555);
+      --gradient-shine: linear-gradient(135deg, #0f2d2d 0%, #1a4444 50%, #0d2b2b 100%);
+
+      --shadow-sm:       0 1px 3px  rgba(14,44,44,0.08);
+      --shadow-md:       0 4px 8px  rgba(14,44,44,0.10);
+      --shadow-lg:       0 10px 20px rgba(14,44,44,0.12);
+      --shadow-xl:       0 20px 40px rgba(14,44,44,0.14);
+      --shadow-accent:   0 4px 14px  rgba(14,44,44,0.25);
+      --shadow-accent-lg:0 8px 28px  rgba(14,44,44,0.35);
+
+      --radius-sm:   8px;
+      --radius-md:   12px;
+      --radius-lg:   16px;
+      --radius-xl:   24px;
+      --radius-full: 9999px;
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Cairo', 'Tajawal', system-ui, sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      line-height: 1.6;
+      overflow-x: hidden;
+      direction: rtl;
+    }
+    img { display: block; max-width: 100%; }
+    a   { text-decoration: none; color: inherit; }
+    ul  { list-style: none; }
+
+    /* ============================================
+       GRADIENT TEXT
+    ============================================ */
+    .gradient-text {
+      background: var(--gradient-h);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* ============================================
+       LAYOUT
+    ============================================ */
+    .container { max-width: 72rem; margin: 0 auto; padding: 0 1.5rem; }
+    .section    { padding: 7rem 0; }
+    .section-lg { padding: 9rem 0; }
+
+    /* ============================================
+       SECTION BADGE
+    ============================================ */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(14,44,44,0.25);
+      background: rgba(14,44,44,0.07);
+      padding: 0.5rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-badge__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-dot 2s infinite;
+      flex-shrink: 0;
+    }
+    .section-badge__text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+    }
+    @keyframes pulse-dot {
+      0%,100% { transform: scale(1);    opacity: 1;   }
+      50%      { transform: scale(1.4); opacity: 0.65;}
+    }
+
+    /* ============================================
+       BUTTONS
+    ============================================ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 0.5rem;
+      font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1rem;
+      border-radius: var(--radius-md); border: none; cursor: pointer;
+      transition: all 0.22s ease-out; text-decoration: none; white-space: nowrap;
+    }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: var(--gradient-shine);
+      color: #fff;
+      padding: 0.875rem 2rem; height: 3.25rem;
+      box-shadow: var(--shadow-accent);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-accent-lg);
+      filter: brightness(1.12);
+    }
+
+    .btn-outline {
+      background: transparent; color: var(--foreground);
+      border: 1.5px solid var(--border-dark);
+      padding: 0.875rem 2rem; height: 3.25rem;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: rgba(14,44,44,0.05);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-icon { display: inline-flex; align-items: center; transition: transform 0.2s; }
+    .btn:hover .btn-icon { transform: translateX(-4px); }
+
+    /* ============================================
+       NAVBAR
+    ============================================ */
+    .navbar {
+      position: fixed; top: 0; right: 0; left: 0; z-index: 100;
+      background: rgba(244,247,247,0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .navbar.scrolled { box-shadow: var(--shadow-md); }
+
+    .navbar__inner {
+      display: flex; align-items: center;
+      justify-content: space-between; height: 4.75rem;
+    }
+
+    .navbar__logo {
+      display: flex; align-items: center; gap: 0.75rem; cursor: pointer;
+    }
+    .navbar__logo-img {
+      width: 52px; height: 52px;
+      object-fit: contain;
+      /* NO background — transparent logo */
+    }
+    .navbar__logo-fallback {
+      width: 52px; height: 52px;
+      border-radius: var(--radius-sm);
+      background: var(--gradient-shine);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 900; font-size: 1.3rem;
+      font-family: 'Cairo', sans-serif;
+    }
+    .navbar__logo-text {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 900; font-size: 1.25rem;
+      color: var(--foreground);
+    }
+    .navbar__logo-sub {
+      font-size: 0.65rem; color: var(--muted-foreground);
+      font-weight: 500; display: block; line-height: 1; margin-top: 2px;
+    }
+
+    .navbar__nav {
+      display: flex; align-items: center; gap: 2.25rem;
+    }
+    .navbar__link {
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--muted-foreground);
+      transition: color 0.2s; position: relative;
+    }
+    .navbar__link::after {
+      content: ''; position: absolute; bottom: -4px; right: 0;
+      width: 0; height: 2px;
+      background: var(--gradient-h); border-radius: 2px;
+      transition: width 0.3s;
+    }
+    .navbar__link:hover { color: var(--accent); }
+    .navbar__link:hover::after { width: 100%; }
+
+    .navbar__hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; background: none; border: none;
+    }
+    .navbar__hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--foreground); border-radius: 2px; transition: all 0.3s;
+    }
+
+    .mobile-menu {
+      display: none; position: fixed;
+      top: 4.75rem; right: 0; left: 0;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem; z-index: 99;
+      box-shadow: var(--shadow-lg);
+      flex-direction: column; gap: 0.25rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu__link {
+      font-size: 1rem; font-weight: 600; color: var(--foreground);
+      padding: 0.875rem 0; border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu__link:hover { color: var(--accent-light); }
+
+    /* ============================================
+       HERO
+    ============================================ */
+    .hero {
+      padding-top: 8.5rem; padding-bottom: 7rem;
+      position: relative; overflow: hidden;
+    }
+    .hero__glow {
+      position: absolute; width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(14,44,44,0.07) 0%, transparent 70%);
+      top: -150px; left: -200px; pointer-events: none;
+    }
+    .hero__glow-2 {
+      position: absolute; width: 450px; height: 450px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,68,68,0.05) 0%, transparent 70%);
+      bottom: 0; right: -100px; pointer-events: none;
+    }
+
+    .hero__grid {
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem; align-items: center; position: relative; z-index: 1;
+    }
+
+    .hero__badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(14,44,44,0.07);
+      border: 1px solid rgba(14,44,44,0.18);
+      border-radius: var(--radius-full);
+      padding: 0.4rem 1.1rem; margin-bottom: 1.5rem;
+      font-size: 0.82rem; font-weight: 700; color: var(--accent);
+    }
+    .hero__badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent); animation: pulse-dot 2s infinite;
+    }
+
+    .hero__headline {
+      font-family: 'Cairo', sans-serif; font-weight: 900;
+      font-size: clamp(2.6rem, 5vw, 4.5rem);
+      line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--foreground); margin-bottom: 1.5rem;
+    }
+    .hero__headline-highlight { position: relative; display: inline-block; }
+    .hero__headline-highlight .gradient-text { position: relative; z-index: 1; }
+    .hero__underline {
+      position: absolute; bottom: -4px; right: 0; left: 0;
+      height: 10px; border-radius: 2px;
+      background: linear-gradient(to left, rgba(14,44,44,0.15), rgba(36,85,85,0.08));
+    }
+
+    .hero__desc {
+      font-size: 1.1rem; color: var(--muted-foreground);
+      line-height: 1.8; margin-bottom: 2.5rem; max-width: 520px;
+    }
+    .hero__actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+
+    .hero__trust {
+      display: flex; align-items: center; gap: 1.25rem;
+      margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .hero__trust-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.85rem; color: var(--muted-foreground); font-weight: 600;
+    }
+    .hero__trust-icon {
+      width: 32px; height: 32px; border-radius: var(--radius-sm);
+      background: var(--gradient-shine);
+      display: flex; align-items: center; justify-content: center;
+      color: white; flex-shrink: 0;
+    }
+
+    /* ── Hero Graphic ── */
+    .hero__graphic {
+      position: relative; height: 500px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero__graphic-bg {
+      position: absolute; inset: 0; border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, rgba(14,44,44,0.06) 0%, rgba(36,85,85,0.03) 100%);
+      border: 1px solid rgba(14,44,44,0.1);
+    }
+    .hero__ring {
+      position: absolute; width: 360px; height: 360px; border-radius: 50%;
+      border: 2px dashed rgba(14,44,44,0.18);
+      animation: rotate-ring 60s linear infinite;
+    }
+    .hero__ring-inner {
+      position: absolute; width: 230px; height: 230px; border-radius: 50%;
+      border: 1px dashed rgba(36,85,85,0.22);
+      animation: rotate-ring 38s linear infinite reverse;
+    }
+    @keyframes rotate-ring {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .hero__center-circle {
+      width: 130px; height: 130px; border-radius: 50%;
+      background: var(--gradient-shine);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-accent-lg);
+      position: relative; z-index: 2;
+      overflow: hidden;
+    }
+    .hero__center-logo {
+      width: 90px; height: 90px; object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+    .hero__center-fallback {
+      font-family: 'Cairo', sans-serif; font-weight: 900;
+      font-size: 1rem; color: white; text-align: center; line-height: 1.3;
+    }
+
+    .hero__float-card {
+      position: absolute;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.875rem 1.25rem;
+      box-shadow: var(--shadow-xl);
+      display: flex; align-items: center; gap: 0.75rem;
+      z-index: 3;
+    }
+    .hero__float-card:nth-child(4) { animation: float-a 5s ease-in-out infinite; }
+    .hero__float-card:nth-child(5) { animation: float-b 4s ease-in-out infinite; }
+    .hero__float-card:nth-child(6) { animation: float-c 6s ease-in-out infinite; }
+
+    @keyframes float-a { 0%,100%{transform:translateY(0)}   50%{transform:translateY(-10px)} }
+    @keyframes float-b { 0%,100%{transform:translateY(0)}   50%{transform:translateY(-8px)}  }
+    @keyframes float-c { 0%,100%{transform:translateY(-5px)}50%{transform:translateY(5px)}   }
+
+    .hero__float-card--tl { top: 2rem;    left: 1.5rem; }
+    .hero__float-card--bl { bottom: 2.5rem; left: 1rem; }
+    .hero__float-card--mr { top: 50%; right: 0.5rem; transform: translateY(-50%); }
+
+    .float-card__icon {
+      width: 38px; height: 38px; border-radius: var(--radius-sm);
+      background: var(--gradient-shine);
+      display: flex; align-items: center; justify-content: center;
+      color: white; flex-shrink: 0; box-shadow: var(--shadow-accent);
+    }
+    .float-card__label { font-size: 0.68rem; color: var(--muted-foreground); font-weight: 500; }
+    .float-card__value { font-size: 0.95rem; font-weight: 800; color: var(--foreground); line-height: 1.2; }
+
+    .hero__dot-grid {
+      position: absolute; bottom: 1.5rem; right: 1.5rem;
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; opacity: 0.25;
+    }
+    .hero__dot-grid span {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--accent); display: block;
+    }
+
+    /* ============================================
+       STATS (INVERTED)
+    ============================================ */
+    .stats {
+      background: var(--foreground);
+      color: white; padding: 5.5rem 0;
+      position: relative; overflow: hidden;
+    }
+    .stats__dot-pattern {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px; pointer-events: none;
+    }
+    .stats__glow {
+      position: absolute; width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(36,85,85,0.35) 0%, transparent 70%);
+      top: -200px; right: -100px; pointer-events: none;
+    }
+    .stats__grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      position: relative; z-index: 1;
+    }
+    .stats__item {
+      padding: 2rem; text-align: center;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.3s;
+    }
+    .stats__item:last-child { border-left: none; }
+    .stats__item:hover { background: rgba(255,255,255,0.04); }
+    .stats__number {
+      font-family: 'Cairo', sans-serif; font-weight: 900;
+      font-size: 3rem; line-height: 1; margin-bottom: 0.5rem;
+      background: linear-gradient(to left, #7ab8b8, #c8e8e8);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .stats__label { font-size: 0.9rem; color: rgba(255,255,255,0.55); font-weight: 500; }
+
+    /* ============================================
+       ABOUT
+    ============================================ */
+    .about__grid {
+      display: grid; grid-template-columns: 1.2fr 0.8fr;
+      gap: 5rem; align-items: center;
+    }
+    .about__headline {
+      font-family: 'Cairo', sans-serif; font-weight: 900;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15; margin-bottom: 1.25rem; color: var(--foreground);
+    }
+    .about__desc {
+      font-size: 1.05rem; color: var(--muted-foreground);
+      line-height: 1.8; margin-bottom: 1.25rem;
+    }
+    .about__features { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .about__feature  { display: flex; align-items: flex-start; gap: 1rem; }
+    .about__feature-icon {
+      width: 42px; height: 42px; border-radius: var(--radius-sm);
+      background: var(--gradient-shine);
+      display: flex; align-items: center; justify-content: center;
+      color: white; flex-shrink: 0; box-shadow: var(--shadow-accent);
+    }
+    .about__feature-text h4 { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .about__feature-text p  { font-size: 0.875rem; color: var(--muted-foreground); line-height: 1.65; }
+
+    .about__visual-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 4rem 1rem 4rem 1rem;
+      padding: 2.75rem 2.25rem; box-shadow: var(--shadow-xl);
+      position: relative; overflow: hidden;
+    }
+    .about__visual-card::before {
+      content: ''; position: absolute; top: 0; right: 0;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(14,44,44,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .about__visual-title {
+      font-family: 'Cairo', sans-serif; font-weight: 800;
+      font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--foreground);
+    }
+    .about__visual-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .about__visual-item {
+      display: flex; align-items: center; gap: 0.875rem;
+      padding: 0.875rem 1rem; background: var(--muted);
+      border-radius: var(--radius-md); transition: all 0.2s;
+    }
+    .about__visual-item:hover {
+      background: rgba(14,44,44,0.07); transform: translateX(-4px);
+    }
+    .about__visual-item-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--gradient-h); flex-shrink: 0;
+    }
+    .about__visual-item span { font-size: 0.9rem; font-weight: 600; color: var(--foreground); }
+
+    /* ============================================
+       SECTION HEADER (shared)
+    ============================================ */
+    .section__header { text-align: center; margin-bottom: 4rem; }
+    .section__headline {
+      font-family: 'Cairo', sans-serif; font-weight: 900;
+      font-size: clamp(1.875rem, 3vw, 2.75rem);
+      line-height: 1.15; color: var(--foreground); margin-bottom: 1rem;
+    }
+    .section__desc {
+      font-size: 1.05rem; color: var(--muted-foreground);
+      max-width: 560px; margin: 0 auto; line-height: 1.75;
+    }
+
+    /* ============================================
+       SERVICES
+    ============================================ */
+    .services { background: var(--muted); }
+    .services__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+
+    .service-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2.25rem;
+      transition: all 0.3s ease-out; position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(14,44,44,0.04) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.3s; border-radius: var(--radius-lg);
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); border-color: rgba(14,44,44,0.2); }
+    .service-card:hover::after { opacity: 1; }
+
+    .service-card--featured {
+      border: 2px solid transparent;
+      background: linear-gradient(var(--card),var(--card)) padding-box,
+                  var(--gradient-h) border-box;
+      box-shadow: var(--shadow-accent);
+    }
+    .service-card--featured:hover { box-shadow: var(--shadow-accent-lg); }
+
+    .service-card__icon {
+      width: 54px; height: 54px; border-radius: var(--radius-md);
+      background: var(--gradient-shine);
+      display: flex; align-items: center; justify-content: center;
+      color: white; margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-accent); transition: transform 0.3s;
+      position: relative; z-index: 1;
+    }
+    .service-card:hover .service-card__icon { transform: scale(1.1); }
+    .service-card__title {
+      font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.15rem;
+      color: var(--foreground); margin-bottom: 0.75rem; position: relative; z-index: 1;
+    }
+    .service-card__desc {
+      font-size: 0.9rem; color: var(--muted-foreground);
+      line-height: 1.7; position: relative; z-index: 1;
+    }
+    .service-card__tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 1.25rem; padding: 0.3rem 0.875rem;
+      background: rgba(14,44,44,0.07); border-radius: var(--radius-full);
+      font-size: 0.75rem; font-weight: 700; color: var(--accent);
+      position: relative; z-index: 1;
+    }
+
+    /* ============================================
+       HOW IT WORKS
+    ============================================ */
+    .steps__grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 2rem; position: relative;
+    }
+    .steps__line {
+      position: absolute; top: 2.5rem; right: 12.5%; left: 12.5%;
+      height: 2px;
+      background: linear-gradient(to left, var(--accent), var(--accent-lighter));
+      opacity: 0.18; z-index: 0;
+    }
+    .step-card { text-align: center; position: relative; z-index: 1; }
+    .step-card__number {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: var(--gradient-shine);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-family: 'Cairo', sans-serif;
+      font-weight: 900; font-size: 1.15rem;
+      margin: 0 auto 1.5rem; box-shadow: var(--shadow-accent);
+      position: relative; transition: transform 0.3s;
+    }
+    .step-card:hover .step-card__number { transform: scale(1.1); }
+    .step-card__number::after {
+      content: ''; position: absolute; inset: -5px; border-radius: 50%;
+      border: 2px dashed rgba(14,44,44,0.22);
+      animation: rotate-ring 8s linear infinite;
+    }
+    .step-card__title {
+      font-family:'Cairo', sans-serif; font-weight: 700; font-size: 1rem;
+      color: var(--foreground); margin-bottom: 0.6rem;
+    }
+    .step-card__desc {
+      font-size: 0.875rem; color: var(--muted-foreground); line-height: 1.7;
+    }
+
+    /* ============================================
+       PRODUCTS
+    ============================================ */
+    .products { background: var(--muted); }
+    .products__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+
+    .product-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden;
+      transition: all 0.3s ease-out;
+    }
+    .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); border-color: rgba(14,44,44,0.2); }
+
+    .product-card__visual {
+      height: 160px; background: var(--gradient-shine);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .product-card__visual::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.12) 0%, transparent 60%);
+    }
+    .product-card__visual svg {
+      width: 64px; height: 64px; color: rgba(255,255,255,0.9);
+      position: relative; z-index: 1;
+    }
+    .product-card__body { padding: 1.75rem; }
+    .product-card__title {
+      font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1.1rem;
+      color: var(--foreground); margin-bottom: 0.6rem;
+    }
+    .product-card__desc {
+      font-size: 0.875rem; color: var(--muted-foreground);
+      line-height: 1.7; margin-bottom: 1.25rem;
+    }
+    .product-card__specs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .product-card__spec {
+      padding: 0.25rem 0.75rem; background: var(--muted);
+      border-radius: var(--radius-full); font-size: 0.75rem;
+      font-weight: 600; color: var(--muted-foreground); border: 1px solid var(--border);
+    }
+
+    /* ============================================
+       WHY US (INVERTED)
+    ============================================ */
+    .whyus {
+      background: var(--foreground-3); color: white;
+      position: relative; overflow: hidden;
+    }
+    .whyus__dot-pattern {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px; pointer-events: none;
+    }
+    .whyus__glow {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(36,85,85,0.4) 0%, transparent 70%);
+      bottom: -200px; left: -100px; pointer-events: none;
+    }
+    .whyus__glow-2 {
+      position: absolute; width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,68,68,0.3) 0%, transparent 70%);
+      top: -100px; right: -100px; pointer-events: none;
+    }
+    .whyus__header { text-align: center; margin-bottom: 4rem; position: relative; z-index: 1; }
+    .whyus__headline {
+      font-family: 'Cairo', sans-serif; font-weight: 900;
+      font-size: clamp(1.875rem, 3vw, 2.75rem);
+      color: white; margin-bottom: 1rem; line-height: 1.15;
+    }
+    .whyus__desc {
+      font-size: 1.05rem; color: rgba(255,255,255,0.5);
+      max-width: 520px; margin: 0 auto; line-height: 1.75;
+    }
+    .whyus__grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1.5rem; position: relative; z-index: 1;
+    }
+    .whyus-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg); padding: 2.25rem; transition: all 0.3s;
+    }
+    .whyus-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(200,232,232,0.2);
+      transform: translateY(-4px);
+    }
+    .whyus-card__icon {
+      width: 54px; height: 54px; border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(36,85,85,0.8), rgba(26,68,68,0.9));
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(200,232,232,0.9); margin-bottom: 1.5rem;
+      transition: transform 0.3s; box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+    .whyus-card:hover .whyus-card__icon { transform: scale(1.1); }
+    .whyus-card__title {
+      font-family: 'Cairo', sans-serif; font-weight: 700;
+      font-size: 1.1rem; color: white; margin-bottom: 0.75rem;
+    }
+    .whyus-card__desc { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.75; }
+
+    /* ============================================
+       CONTACT
+    ============================================ */
+    .contact__grid {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 4rem; align-items: start;
+    }
+    .contact__info-headline {
+      font-family: 'Cairo', sans-serif; font-weight: 900;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      line-height: 1.15; color: var(--foreground); margin-bottom: 1rem;
+    }
+    .contact__info-desc {
+      font-size: 1rem; color: var(--muted-foreground);
+      line-height: 1.75; margin-bottom: 2.5rem;
+    }
+    .contact__details { display: flex; flex-direction: column; gap: 1rem; }
+    .contact__detail {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.25rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: var(--radius-md);
+      transition: all 0.22s; text-decoration: none; color: inherit;
+    }
+    .contact__detail:hover {
+      border-color: rgba(14,44,44,0.3);
+      box-shadow: var(--shadow-md); transform: translateX(-4px);
+    }
+    .contact__detail-icon {
+      width: 46px; height: 46px; border-radius: var(--radius-sm);
+      background: var(--gradient-shine);
+      display: flex; align-items: center; justify-content: center;
+      color: white; flex-shrink: 0; box-shadow: var(--shadow-accent);
+    }
+    .contact__detail-label {
+      font-size: 0.72rem; color: var(--muted-foreground);
+      font-weight: 500; margin-bottom: 0.2rem;
+    }
+    .contact__detail-value {
+      font-size: 0.95rem; font-weight: 700; color: var(--foreground);
+      direction: ltr; text-align: right;
+    }
+    .contact__map-wrapper {
+      border-radius: var(--radius-lg); overflow: hidden;
+      border: 1px solid var(--border); box-shadow: var(--shadow-xl);
+      position: relative;
+    }
+    .contact__map-wrapper::before {
+      content: ''; position: absolute; inset: 0;
+      border-radius: var(--radius-lg);
+      border: 2px solid transparent;
+      background: var(--gradient-h) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      z-index: 1; pointer-events: none;
+    }
+    .contact__map-wrapper iframe { display: block; width: 100%; height: 380px; border: none; }
+    .contact__map-label {
+      padding: 1rem 1.25rem; background: var(--card);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .contact__map-label-icon {
+      width: 34px; height: 34px; border-radius: var(--radius-sm);
+      background: var(--gradient-shine);
+      display: flex; align-items: center; justify-content: center;
+      color: white; flex-shrink: 0;
+    }
+    .contact__map-label-text { font-size: 0.875rem; font-weight: 700; color: var(--foreground); }
+    .contact__map-label-sub  { font-size: 0.75rem; color: var(--muted-foreground); }
+
+    /* ============================================
+       CTA (INVERTED)
+    ============================================ */
+    .cta {
+      background: var(--foreground-2); color: white;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta__dot-pattern {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px; pointer-events: none;
+    }
+    .cta__glow {
+      position: absolute; width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(36,85,85,0.45) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none;
+    }
+    .cta__content { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+    .cta__headline {
+      font-family: 'Cairo', sans-serif; font-weight: 900;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.1; color: white; margin-bottom: 1.25rem;
+    }
+    .cta__desc {
+      font-size: 1.05rem; color: rgba(255,255,255,0.55);
+      line-height: 1.75; margin-bottom: 2.5rem;
+    }
+    .cta__actions {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .btn-white {
+      background: white; color: var(--accent);
+      padding: 0.875rem 2rem; height: 3.25rem; font-weight: 700;
+      border-radius: var(--radius-md); border: none; cursor: pointer;
+      font-family: 'Cairo', sans-serif; font-size: 1rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: all 0.22s; box-shadow: 0 4px 14px rgba(255,255,255,0.12);
+      text-decoration: none;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.2); filter: brightness(1.04); }
+    .btn-ghost-white {
+      background: rgba(255,255,255,0.07); color: white;
+      padding: 0.875rem 2rem; height: 3.25rem; font-weight: 600;
+      border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: all 0.22s; text-decoration: none;
+    }
+    .btn-ghost-white:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    .footer {
+      background: #071818; color: white;
+      padding: 4.5rem 0 2rem; position: relative; overflow: hidden;
+    }
+    .footer__glow {
+      position: absolute; width: 450px; height: 450px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(14,44,44,0.5) 0%, transparent 70%);
+      top: -100px; right: -100px; pointer-events: none;
+    }
+    .footer__grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem; padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      position: relative; z-index: 1;
+    }
+    .footer__brand-logo { display: flex; align-items: center; gap: 0.875rem; margin-bottom: 1.25rem; }
+    .footer__brand-logo-img {
+      width: 52px; height: 52px; object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+    .footer__brand-logo-fallback {
+      width: 52px; height: 52px; border-radius: var(--radius-sm);
+      background: var(--gradient-shine);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 900; font-size: 1.2rem;
+      font-family: 'Cairo', sans-serif; flex-shrink: 0;
+    }
+    .footer__brand-name {
+      font-family: 'Cairo', sans-serif; font-weight: 900;
+      font-size: 1.15rem; color: white;
+    }
+    .footer__brand-sub {
+      font-size: 0.65rem; color: rgba(255,255,255,0.35);
+      display: block; line-height: 1; margin-top: 2px;
+    }
+    .footer__brand-desc {
+      font-size: 0.875rem; color: rgba(255,255,255,0.4);
+      line-height: 1.75; margin-bottom: 1.5rem;
+    }
+    .footer__social { display: flex; gap: 0.75rem; }
+    .footer__social-link {
+      width: 38px; height: 38px; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.45); transition: all 0.22s; text-decoration: none;
+    }
+    .footer__social-link:hover {
+      background: var(--gradient-shine); border-color: transparent;
+      color: white; transform: translateY(-2px); box-shadow: var(--shadow-accent);
+    }
+    .footer__col-title {
+      font-family: 'Cairo', sans-serif; font-weight: 700;
+      font-size: 0.95rem; color: white; margin-bottom: 1.25rem;
+    }
+    .footer__links { display: flex; flex-direction: column; gap: 0.75rem; }
+    .footer__link {
+      font-size: 0.875rem; color: rgba(255,255,255,0.4);
+      transition: color 0.2s; text-decoration: none;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .footer__link:hover { color: rgba(255,255,255,0.85); }
+    .footer__link::before {
+      content: '←'; font-size: 0.7rem; opacity: 0;
+      transition: opacity 0.2s, transform 0.2s; transform: translateX(4px);
+    }
+    .footer__link:hover::before { opacity: 1; transform: translateX(0); }
+    .footer__contact-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.875rem; }
+    .footer__contact-icon {
+      width: 30px; height: 30px; border-radius: 6px;
+      background: rgba(36,85,85,0.5);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(200,232,232,0.8); flex-shrink: 0; margin-top: 1px;
+    }
+    .footer__contact-text {
+      font-size: 0.825rem; color: rgba(255,255,255,0.4);
+      line-height: 1.65; direction: ltr; text-align: right;
+    }
+    .footer__contact-text a {
+      color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
+    }
+    .footer__contact-text a:hover { color: rgba(200,232,232,0.9); }
+    .footer__bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 2rem; position: relative; z-index: 1;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer__copy { font-size: 0.8rem; color: rgba(255,255,255,0.25); }
+    .footer__copy span { color: rgba(200,232,232,0.7); }
+    .footer__bottom-links { display: flex; gap: 1.5rem; }
+    .footer__bottom-link {
+      font-size: 0.8rem; color: rgba(255,255,255,0.25);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer__bottom-link:hover { color: rgba(255,255,255,0.65); }
+
+    /* ============================================
+       SCROLL REVEAL
+    ============================================ */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 1024px) {
+      .hero__grid          { grid-template-columns: 1fr; gap: 3rem; }
+      .hero__graphic       { display: none; }
+      .about__grid         { grid-template-columns: 1fr; gap: 3rem; }
+      .services__grid      { grid-template-columns: repeat(2,1fr); }
+      .steps__grid         { grid-template-columns: repeat(2,1fr); gap: 2.5rem; }
+      .steps__line         { display: none; }
+      .products__grid      { grid-template-columns: repeat(2,1fr); }
+      .whyus__grid         { grid-template-columns: repeat(2,1fr); }
+      .contact__grid       { grid-template-columns: 1fr; gap: 3rem; }
+      .footer__grid        { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .stats__grid         { grid-template-columns: repeat(2,1fr); }
+      .stats__item         { border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .stats__item:nth-child(odd) { border-left: none; }
+    }
+    @media (max-width: 640px) {
+      .section             { padding: 4.5rem 0; }
+      .section-lg          { padding: 5.5rem 0; }
+      .navbar__nav         { display: none; }
+      .navbar__cta         { display: none; }
+      .navbar__hamburger   { display: flex; }
+      .hero                { padding-top: 6.5rem; padding-bottom: 4.5rem; }
+      .hero__actions       { flex-direction: column; align-items: stretch; }
+      .hero__actions .btn  { width: 100%; justify-content: center; }
+      .hero__trust         { flex-wrap: wrap; gap: 0.75rem; }
+      .services__grid      { grid-template-columns: 1fr; }
+      .steps__grid         { grid-template-columns: 1fr; }
+      .products__grid      { grid-template-columns: 1fr; }
+      .whyus__grid         { grid-template-columns: 1fr; }
+      .stats__grid         { grid-template-columns: repeat(2,1fr); }
+      .footer__grid        { grid-template-columns: 1fr; gap: 2rem; }
+      .footer__bottom      { flex-direction: column; text-align: center; }
+      .cta__actions        { flex-direction: column; align-items: stretch; }
+      .cta__actions .btn-white,
+      .cta__actions .btn-ghost-white { width: 100%; justify-content: center; }
+    }
+
+    /* ============================================
+       ACCESSIBILITY
+    ============================================ */
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+  ============================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar__inner">
+
+        <a href="#" class="navbar__logo" id="logoLink">
+          <img
+            src="logo.png"
+            alt="قوافل الخير"
+            class="navbar__logo-img"
+            id="navLogo"
+            onerror="this.style.display='none'; document.getElementById('navLogoFallback').style.display='flex';"
+          />
+          <div class="navbar__logo-fallback" id="navLogoFallback" style="display:none;">خ</div>
+          <div>
+            <span class="navbar__logo-text">قوافل الخير</span>
+            <span class="navbar__logo-sub">استيراد المواد الخام · زليتن</span>
+          </div>
+        </a>
+
+        <ul class="navbar__nav">
+          <li><a href="#about"    class="navbar__link">من نحن</a></li>
+          <li><a href="#services" class="navbar__link">خدماتنا</a></li>
+          <li><a href="#products" class="navbar__link">منتجاتنا</a></li>
+          <li><a href="#contact"  class="navbar__link">تواصل معنا</a></li>
+        </ul>
+
+        <div class="navbar__cta">
+          <a href="mailto:info@kawafelalkheer.com.ly" class="btn btn-primary"
+             style="height:2.75rem; padding:0 1.25rem; font-size:0.875rem;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            راسلنا
+          </a>
+        </div>
+
+        <button class="navbar__hamburger" id="hamburger" aria-label="فتح القائمة">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about"    class="mobile-menu__link">من نحن</a>
+    <a href="#services" class="mobile-menu__link">خدماتنا</a>
+    <a href="#products" class="mobile-menu__link">منتجاتنا</a>
+    <a href="#contact"  class="mobile-menu__link">تواصل معنا</a>
+    <a href="mailto:info@kawafelalkheer.com.ly" class="btn btn-primary" style="margin-top:0.5rem;">
+      راسلنا الآن
+    </a>
+  </div>
+
+  <!-- ============================================
+       HERO
+  ============================================ -->
+  <section class="hero">
+    <div class="hero__glow"></div>
+    <div class="hero__glow-2"></div>
+    <div class="container">
+      <div class="hero__grid">
+
+        <!-- Content -->
+        <div class="hero__content">
+          <div class="hero__badge reveal">
+            <span class="hero__badge-dot"></span>
+            شركة ليبية معتمدة · زليتن
+          </div>
+
+          <h1 class="hero__headline reveal reveal-delay-1">
+            نستورد لك
+            <br/>
+            <span class="hero__headline-highlight">
+              <span class="gradient-text">أجود المواد</span>
+              <span class="hero__underline"></span>
+            </span>
+            <br/>
+            الخام بثقة
+          </h1>
+
+          <p class="hero__desc reveal reveal-delay-2">
+            قوافل الخير شركة ليبية متخصصة في استيراد المواد الخام عالية الجودة،
+            نربط السوق الليبي بأفضل الموردين العالميين بكفاءة واحترافية تامة.
+          </p>
+
+          <div class="hero__actions reveal reveal-delay-3">
+            <a href="#contact" class="btn btn-primary">
+              تواصل معنا الآن
+              <span class="btn-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5">
+                  <line x1="19" y1="12" x2="5" y2="12"/>
+                  <polyline points="12 19 5 12 12 5"/>
+                </svg>
+              </span>
+            </a>
+            <a href="#services" class="btn btn-outline">اكتشف خدماتنا</a>
+          </div>
+
+          <div class="hero__trust reveal reveal-delay-4">
+            <div class="hero__trust-item">
+              <div class="hero__trust-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <span>جودة مضمونة</span>
+            </div>
+            <div class="hero__trust-item">
+              <div class="hero__trust-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                </svg>
+              </div>
+              <span>شحن دولي</span>
+            </div>
+            <div class="hero__trust-item">
+              <div class="hero__trust-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </div>
+              <span>توثيق كامل</span>
+            </div>
+            <div class="hero__trust-item">
+              <div class="hero__trust-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <span>شراكات موثوقة</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Graphic -->
+        <div class="hero__graphic reveal reveal-delay-2">
+          <div class="hero__graphic-bg"></div>
+          <div class="hero__ring"></div>
+          <div class="hero__ring-inner"></div>
+
+          <div class="hero__center-circle">
+            <img
+              src="logo.png"
+              alt="قوافل الخير"
+              class="hero__center-logo"
+              id="heroLogo"
+              onerror="this.style.display='none'; document.getElementById('heroLogoFallback').style.display='block';"
+            />
+            <span class="hero__center-fallback" id="heroLogoFallback" style="display:none;">
+              قوافل<br/>الخير
+            </span>
+          </div>
+
+          <!-- Float Card 1 -->
+          <div class="hero__float-card hero__float-card--tl">
+            <div class="float-card__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="float-card__label">الموردون</div>
+              <div class="float-card__value">+20 دولة</div>
+            </div>
+          </div>
+
+          <!-- Float Card 2 -->
+          <div class="hero__float-card hero__float-card--bl">
+            <div class="float-card__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                <line x1="12" y1="22.08" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <div>
+              <div class="float-card__label">الشحنات المنجزة</div>
+              <div class="float-card__value">+500 شحنة</div>
+            </div>
+          </div>
+
+          <!-- Float Card 3 -->
+          <div class="hero__float-card hero__float-card--mr">
+            <div class="float-card__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <div>
+              <div class="float-card__label">رضا العملاء</div>
+              <div class="float-card__value">98%</div>
+            </div>
+          </div>
+
+          <!-- Dot Grid -->
+          <div class="hero__dot-grid">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       STATS
+  ============================================ -->
+  <section class="stats">
+    <div class="stats__dot-pattern"></div>
+    <div class="stats__glow"></div>
+    <div class="container">
+      <div class="stats__grid">
+        <div class="stats__item reveal">
+          <div class="stats__number">+10</div>
+          <div class="stats__label">سنوات من الخبرة</div>
+        </div>
+        <div class="stats__item reveal reveal-delay-1">
+          <div class="stats__number">+500</div>
+          <div class="stats__label">شحنة منجزة</div>
+        </div>
+        <div class="stats__item reveal reveal-delay-2">
+          <div class="stats__number">+200</div>
+          <div class="stats__label">عميل راضٍ</div>
+        </div>
+        <div class="stats__item reveal reveal-delay-3">
+          <div class="stats__number">+20</div>
+          <div class="stats__label">دولة مورّدة</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       ABOUT
+  ============================================ -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about__grid">
+        <div>
+          <div class="section-badge reveal">
+            <span class="section-badge__dot"></span>
+            <span class="section-badge__text">من نحن</span>
+          </div>
+          <h2 class="about__headline reveal reveal-delay-1">
+            شركة ليبية رائدة في
+            <span class="gradient-text">استيراد المواد الخام</span>
+          </h2>
+          <p class="about__desc reveal reveal-delay-2">
+            تأسست شركة قوافل الخير بهدف سد الفجوة بين السوق الليبي والموردين
+            العالميين، نعمل بشفافية واحترافية عالية لتوفير أجود المواد الخام
+            بأسعار تنافسية وفي الوقت المحدد.
+          </p>
+          <p class="about__desc reveal reveal-delay-2">
+            مقرنا الرئيسي في مدينة زليتن الليبية، ونخدم عملاءنا في مختلف
+            أنحاء ليبيا بفريق متخصص يمتلك خبرة واسعة في مجال الاستيراد
+            والتجارة الدولية.
+          </p>
+          <div class="about__features">
+            <div class="about__feature reveal reveal-delay-2">
+              <div class="about__feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="8" r="6"/>
+                  <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+                </svg>
+              </div>
+              <div class="about__feature-text">
+                <h4>خبرة وكفاءة</h4>
+                <p>فريق متخصص بخبرة تتجاوز عشر سنوات في مجال الاستيراد والتجارة الدولية</p>
+              </div>
+            </div>
+            <div class="about__feature reveal reveal-delay-3">
+              <div class="about__feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+              <div class="about__feature-text">
+                <h4>موثوقية وأمان</h4>
+                <p>نضمن سلامة بضائعك من المصدر حتى الوصول إليك مع توثيق كامل لكل مرحلة</p>
+              </div>
+            </div>
+            <div class="about__feature reveal reveal-delay-4">
+              <div class="about__feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+              </div>
+              <div class="about__feature-text">
+                <h4>حلول مخصصة</h4>
+                <p>نقدم حلولاً مصممة خصيصاً لاحتياجات كل عميل بمرونة تامة</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about__visual reveal reveal-delay-2">
+          <div class="about__visual-card">
+            <h3 class="about__visual-title">ما يميّزنا</h3>
+            <div class="about__visual-list">
+              <div class="about__visual-item">
+                <span class="about__visual-item-dot"></span>
+                <span>شبكة موردين عالمية واسعة</span>
+              </div>
+              <div class="about__visual-item">
+                <span class="about__visual-item-dot"></span>
+                <span>أسعار تنافسية وشفافة</span>
+              </div>
+              <div class="about__visual-item">
+                <span class="about__visual-item-dot"></span>
+                <span>توصيل سريع وآمن</span>
+              </div>
+              <div class="about__visual-item">
+                <span class="about__visual-item-dot"></span>
+                <span>دعم ما بعد البيع</span>
+              </div>
+              <div class="about__visual-item">
+                <span class="about__visual-item-dot"></span>
+                <span>فحص الجودة قبل الشحن</span>
+              </div>
+              <div class="about__visual-item">
+                <span class="about__visual-item-dot"></span>
+                <span>إجراءات جمركية سلسة</span>
+              </div>
+              <div class="about__visual-item">
+                <span class="about__visual-item-dot"></span>
+                <span>تغطية كاملة لكل ليبيا</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SERVICES
+  ============================================ -->
+  <section class="section services" id="services">
+    <div class="container">
+      <div class="section__header">
+        <div class="section-badge reveal" style="margin:0 auto 1.5rem;">
+          <span class="section-badge__dot"></span>
+          <span class="section-badge__text">خدماتنا</span>
+        </div>
+        <h2 class="section__headline reveal reveal-delay-1">
+          خدمات متكاملة لتلبية
+          <span class="gradient-text">احتياجاتك</span>
+        </h2>
+        <p class="section__desc reveal reveal-delay-2">
+          نقدم باقة شاملة من الخدمات المتخصصة في مجال الاستيراد والتجارة الدولية
+          لضمان وصول بضائعك بأعلى معايير الجودة
+        </p>
+      </div>
+
+      <div class="services__grid">
+
+        <!-- Card 1 -->
+        <div class="service-card reveal">
+          <div class="service-card__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">استيراد المواد الخام</h3>
+          <p class="service-card__desc">
+            نستورد طيفاً واسعاً من المواد الخام من أرقى الموردين العالميين
+            مع ضمان المطابقة للمواصفات الدولية وشهادات الجودة المعتمدة.
+          </p>
+          <span class="service-card__tag">⭐ الخدمة الرئيسية</span>
+        </div>
+
+        <!-- Card 2 Featured -->
+        <div class="service-card service-card--featured reveal reveal-delay-1">
+          <div class="service-card__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">التخليص الجمركي</h3>
+          <p class="service-card__desc">
+            نتولى كافة إجراءات التخليص الجمركي بخبرة واحترافية عالية،
+            لضمان وصول بضائعك بسرعة وسلاسة دون أي تعقيدات.
+          </p>
+          <span class="service-card__tag">🔥 الأكثر طلباً</span>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-card__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">فحص الجودة</h3>
+          <p class="service-card__desc">
+            نجري فحوصات دقيقة للجودة قبل الشحن مباشرة للتأكد من مطابقة
+            البضائع للمواصفات المتفق عليها وتجنب أي مفاجآت.
+          </p>
+          <span class="service-card__tag">✅ ضمان الجودة</span>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-card__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">الشحن الدولي</h3>
+          <p class="service-card__desc">
+            نوفر حلول شحن متكاملة براً وبحراً وجواً من مختلف دول العالم
+            إلى ليبيا بأسعار تنافسية وأوقات تسليم محددة.
+          </p>
+          <span class="service-card__tag">🚀 سريع وآمن</span>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-card__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">الاستشارات التجارية</h3>
+          <p class="service-card__desc">
+            يقدم فريقنا المتخصص استشارات تجارية شاملة تساعدك على اتخاذ
+            القرارات الصحيحة في مجال الاستيراد وإدارة سلسلة التوريد.
+          </p>
+          <span class="service-card__tag">💼 خبراء معتمدون</span>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-card__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">التخزين والتوزيع</h3>
+          <p class="service-card__desc">
+            نوفر خدمات تخزين آمنة ومنظمة مع إمكانية التوزيع على مختلف
+            مناطق ليبيا وفق جداول زمنية محددة ومرنة تناسب احتياجاتك.
+          </p>
+          <span class="service-card__tag">🏭 تغطية شاملة</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       HOW IT WORKS
+  ============================================ -->
+  <section class="section" id="how">
+    <div class="container">
+      <div class="section__header">
+        <div class="section-badge reveal" style="margin:0 auto 1.5rem;">
+          <span class="section-badge__dot"></span>
+          <span class="section-badge__text">كيف نعمل</span>
+        </div>
+        <h2 class="section__headline reveal reveal-delay-1">
+          أربع خطوات نحو
+          <span class="gradient-text">نجاح صفقتك</span>
+        </h2>
+        <p class="section__desc reveal reveal-delay-2">
+          عملية مبسطة وشفافة من أول تواصل حتى استلام بضائعك
+        </p>
+      </div>
+
+      <div class="steps__grid">
+        <div class="steps__line"></div>
+
+        <div class="step-card reveal">
+          <div class="step-card__number">١</div>
+          <h3 class="step-card__title">تواصل معنا</h3>
+          <p class="step-card__desc">
+            أخبرنا باحتياجاتك من المواد الخام وكمياتها والمواصفات المطلوبة
+            عبر الهاتف أو البريد الإلكتروني
+          </p>
+        </div>
+
+        <div class="step-card reveal reveal-delay-1">
+          <div class="step-card__number">٢</div>
+          <h3 class="step-card__title">دراسة وعرض سعر</h3>
+          <p class="step-card__desc">
+            يدرس فريقنا طلبك ويتواصل مع الموردين المناسبين لتقديم
+            أفضل عرض سعر يناسب ميزانيتك
+          </p>
+        </div>
+
+        <div class="step-card reveal reveal-delay-2">
+          <div class="step-card__number">٣</div>
+          <h3 class="step-card__title">الشحن والمتابعة</h3>
+          <p class="step-card__desc">
+            بعد الموافقة نبدأ إجراءات الشحن مع متابعة مستمرة
+            وتحديثات دورية حول موقع شحنتك
+          </p>
+        </div>
+
+        <div class="step-card reveal reveal-delay-3">
+          <div class="step-card__number">٤</div>
+          <h3 class="step-card__title">الاستلام والتسليم</h3>
+          <p class="step-card__desc">
+            نتولى التخليص الجمركي الكامل ونسلمك بضائعك
+            في الموعد المحدد وبالجودة المتفق عليها
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       PRODUCTS
+  ============================================ -->
+  <section class="section products" id="products">
+    <div class="container">
+      <div class="section__header">
+        <div class="section-badge reveal" style="margin:0 auto 1.5rem;">
+          <span class="section-badge__dot"></span>
+          <span class="section-badge__text">منتجاتنا</span>
+        </div>
+        <h2 class="section__headline reveal reveal-delay-1">
+          مواد خام
+          <span class="gradient-text">متنوعة وعالية الجودة</span>
+        </h2>
+        <p class="section__desc reveal reveal-delay-2">
+          نستورد مجموعة واسعة من المواد الخام لخدمة مختلف القطاعات الصناعية
+          والتجارية في ليبيا
+        </p>
+      </div>
+
+      <div class="products__grid">
+
+        <!-- Product 1 -->
+        <div class="product-card reveal">
+          <div class="product-card__visual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+              <line x1="5" y1="8" x2="5" y2="14"/>
+              <line x1="8" y1="8" x2="8" y2="14"/>
+              <line x1="11" y1="8" x2="11" y2="14"/>
+              <line x1="14" y1="8" x2="14" y2="14"/>
+              <line x1="17" y1="8" x2="17" y2="14"/>
+              <line x1="19" y1="8" x2="19" y2="14"/>
+            </svg>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">مواد البناء الخام</h3>
+            <p class="product-card__desc">
+              حديد التسليح، الأسمنت، الرمل الصناعي، والمواد الإنشائية
+              الأساسية بمواصفات عالمية معتمدة.
+            </p>
+            <div class="product-card__specs">
+              <span class="product-card__spec">حديد تسليح</span>
+              <span class="product-card__spec">أسمنت</span>
+              <span class="product-card__spec">رمل صناعي</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card reveal reveal-delay-1">
+          <div class="product-card__visual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/>
+            </svg>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">المواد الكيميائية</h3>
+            <p class="product-card__desc">
+              مواد كيميائية صناعية وزراعية عالية النقاء مع شهادات
+              السلامة والمطابقة الدولية المعتمدة.
+            </p>
+            <div class="product-card__specs">
+              <span class="product-card__spec">صناعية</span>
+              <span class="product-card__spec">زراعية</span>
+              <span class="product-card__spec">معالجة مياه</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card reveal reveal-delay-2">
+          <div class="product-card__visual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2a10 10 0 1 0 10 10"/>
+              <path d="M12 6v6l4 2"/>
+              <path d="M20 2v6h-6"/>
+            </svg>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">المواد الغذائية الخام</h3>
+            <p class="product-card__desc">
+              حبوب، زيوت خام، سكر، ومواد غذائية أساسية بمعايير
+              الجودة والسلامة الغذائية الدولية.
+            </p>
+            <div class="product-card__specs">
+              <span class="product-card__spec">حبوب</span>
+              <span class="product-card__spec">زيوت خام</span>
+              <span class="product-card__spec">سكر خام</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card reveal reveal-delay-1">
+          <div class="product-card__visual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+            </svg>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">المعادن والسبائك</h3>
+            <p class="product-card__desc">
+              ألومنيوم، نحاس، فولاذ، وسبائك معدنية متخصصة
+              للاستخدامات الصناعية والإنشائية المتنوعة.
+            </p>
+            <div class="product-card__specs">
+              <span class="product-card__spec">ألومنيوم</span>
+              <span class="product-card__spec">نحاس</span>
+              <span class="product-card__spec">فولاذ</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card reveal reveal-delay-2">
+          <div class="product-card__visual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">البلاستيك والبوليمرات</h3>
+            <p class="product-card__desc">
+              حبيبات بلاستيكية، راتنجات، ومواد بوليمرية خام
+              لصناعات التعبئة والتغليف والبلاستيك المتنوعة.
+            </p>
+            <div class="product-card__specs">
+              <span class="product-card__spec">PE</span>
+              <span class="product-card__spec">PP</span>
+              <span class="product-card__spec">PVC</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card reveal reveal-delay-3">
+          <div class="product-card__visual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">المواد الزراعية</h3>
+            <p class="product-card__desc">
+              أسمدة، بذور، ومبيدات زراعية معتمدة لدعم
+              القطاع الزراعي الليبي وتحقيق الأمن الغذائي.
+            </p>
+            <div class="product-card__specs">
+              <span class="product-card__spec">أسمدة</span>
+              <span class="product-card__spec">بذور</span>
+              <span class="product-card__spec">مبيدات</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       WHY US
+  ============================================ -->
+  <section class="section whyus">
+    <div class="whyus__dot-pattern"></div>
+    <div class="whyus__glow"></div>
+    <div class="whyus__glow-2"></div>
+    <div class="container">
+      <div class="whyus__header">
+        <div class="section-badge reveal" style="
+          margin:0 auto 1.5rem;
+          border-color:rgba(200,232,232,0.2);
+          background:rgba(255,255,255,0.05);
+        ">
+          <span class="section-badge__dot" style="background:rgba(200,232,232,0.8);"></span>
+          <span class="section-badge__text" style="color:rgba(200,232,232,0.8);">لماذا نحن</span>
+        </div>
+        <h2 class="whyus__headline reveal reveal-delay-1">
+          لماذا تختار
+          <span style="
+            background: linear-gradient(to left, #7ab8b8, #c8e8e8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+          ">قوافل الخير؟</span>
+        </h2>
+        <p class="whyus__desc reveal reveal-delay-2">
+          نجمع بين الخبرة المحلية والشبكة العالمية لنقدم لك تجربة استيراد
+          لا مثيل لها في السوق الليبي
+        </p>
+      </div>
+
+      <div class="whyus__grid">
+
+        <div class="whyus-card reveal">
+          <div class="whyus-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h3 class="whyus-card__title">شبكة عالمية واسعة</h3>
+          <p class="whyus-card__desc">
+            علاقات راسخة مع أكثر من 20 دولة وشبكة موردين موثوقين
+            تضمن لك أفضل الأسعار وأعلى مستويات الجودة في كل وقت.
+          </p>
+        </div>
+
+        <div class="whyus-card reveal reveal-delay-1">
+          <div class="whyus-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <h3 class="whyus-card__title">سرعة في التنفيذ</h3>
+          <p class="whyus-card__desc">
+            نلتزم بالمواعيد المحددة ونعمل بكفاءة عالية لإنجاز
+            طلباتك في أسرع وقت ممكن دون المساس بالجودة.
+          </p>
+        </div>
+
+        <div class="whyus-card reveal reveal-delay-2">
+          <div class="whyus-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <h3 class="whyus-card__title">أسعار تنافسية</h3>
+          <p class="whyus-card__desc">
+            نستغل علاقاتنا القوية مع الموردين للحصول على
+            أفضل الأسعار وتوفير قيمة حقيقية لعملائنا الكرام.
+          </p>
+        </div>
+
+        <div class="whyus-card reveal reveal-delay-1">
+          <div class="whyus-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3 class="whyus-card__title">ضمان الجودة</h3>
+          <p class="whyus-card__desc">
+            كل شحنة تمر بفحص دقيق للجودة قبل المغادرة
+            مع توثيق كامل وشهادات مطابقة معتمدة دولياً.
+          </p>
+        </div>
+
+        <div class="whyus-card reveal reveal-delay-2">
+          <div class="whyus-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/>
+            </svg>
+          </div>
+          <h3 class="whyus-card__title">دعم متواصل</h3>
+          <p class="whyus-card__desc">
+            فريق دعم متاح لمساعدتك والإجابة على استفساراتك
+            ومتابعة شحناتك في كل مراحل العملية.
+          </p>
+        </div>
+
+        <div class="whyus-card reveal reveal-delay-3">
+          <div class="whyus-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <h3 class="whyus-card__title">حضور محلي قوي</h3>
+          <p class="whyus-card__desc">
+            تواجدنا في زليتن يمنحنا فهماً عميقاً للسوق الليبي
+            واحتياجاته مما يجعلنا الشريك المثالي لأعمالك.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       CONTACT
+  ============================================ -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section__header">
+        <div class="section-badge reveal" style="margin:0 auto 1.5rem;">
+          <span class="section-badge__dot"></span>
+          <span class="section-badge__text">تواصل معنا</span>
+        </div>
+        <h2 class="section__headline reveal reveal-delay-1">
+          نحن هنا
+          <span class="gradient-text">لخدمتك دائماً</span>
+        </h2>
+        <p class="section__desc reveal reveal-delay-2">
+          تواصل معنا عبر أي من القنوات التالية وسيرد عليك فريقنا
+          في أقرب وقت ممكن
+        </p>
+      </div>
+
+      <div class="contact__grid">
+
+        <!-- Info -->
+        <div>
+          <div class="contact__details">
+
+            <a href="tel:0913002595" class="contact__detail reveal">
+              <div class="contact__detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact__detail-label">هاتف ١</div>
+                <div class="contact__detail-value">0913002595</div>
+              </div>
+            </a>
+
+            <a href="tel:0912103189" class="contact__detail reveal reveal-delay-1">
+              <div class="contact__detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                  <line x1="12" y1="18" x2="12.01" y2="18"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact__detail-label">هاتف ٢</div>
+                <div class="contact__detail-value">0912103189</div>
+              </div>
+            </a>
+
+            <a href="mailto:info@kawafelalkheer.com.ly" class="contact__detail reveal reveal-delay-2">
+              <div class="contact__detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact__detail-label">البريد الإلكتروني</div>
+                <div class="contact__detail-value" style="font-size:0.82rem; direction:ltr;">
+                  info@kawafelalkheer.com.ly
+                </div>
+              </div>
+            </a>
+
+            <div class="contact__detail reveal reveal-delay-3" style="cursor:default;">
+              <div class="contact__detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact__detail-label">الموقع</div>
+                <div class="contact__detail-value">زليتن، ليبيا</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Working Hours Card -->
+          <div class="reveal reveal-delay-4" style="
+            margin-top:2rem; padding:1.75rem;
+            background:var(--card); border:1px solid var(--border);
+            border-radius:var(--radius-lg); box-shadow:var(--shadow-md);
+          ">
+            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.25rem;">
+              <div style="
+                width:38px; height:38px; border-radius:var(--radius-sm);
+                background:var(--gradient-shine);
+                display:flex; align-items:center; justify-content:center;
+                color:white; box-shadow:var(--shadow-accent);
+              ">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <h4 style="
+                font-family:'Cairo',sans-serif; font-weight:700;
+                font-size:1rem; color:var(--foreground);
+              ">ساعات العمل</h4>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:0.75rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.875rem; color:var(--muted-foreground); font-weight:500;">
+                  الأحد — الخميس
+                </span>
+                <span style="
+                  font-size:0.78rem; font-weight:700; color:var(--accent);
+                  background:rgba(14,44,44,0.07);
+                  padding:0.2rem 0.875rem; border-radius:var(--radius-full);
+                ">8:00 ص — 5:00 م</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.875rem; color:var(--muted-foreground); font-weight:500;">
+                  الجمعة — السبت
+                </span>
+                <span style="
+                  font-size:0.78rem; font-weight:700; color:var(--muted-foreground);
+                  background:var(--muted); padding:0.2rem 0.875rem;
+                  border-radius:var(--radius-full);
+                ">مغلق</span>
+              </div>
+            </div>
+
+            <div style="
+              margin-top:1.25rem; padding-top:1.25rem;
+              border-top:1px solid var(--border);
+              display:flex; align-items:center; gap:0.6rem;
+            ">
+              <span style="
+                width:8px; height:8px; border-radius:50%;
+                background:#22c55e; display:inline-block;
+                animation:pulse-dot 2s infinite;
+              "></span>
+              <span style="font-size:0.85rem; font-weight:600; color:#16a34a;">
+                متاحون الآن للرد على استفساراتك
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="reveal reveal-delay-2">
+          <div class="contact__map-wrapper">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3223.2111979805795!2d13.240499999999999!3d32.785999999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzLCsDQ3JzA5LjYiTiAxM8KwMTQnMjUuOCJF!5e1!3m2!1sen!2sly!4v1774957932822!5m2!1sen!2sly"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="موقع شركة قوافل الخير"
+            ></iframe>
+            <div class="contact__map-label">
+              <div class="contact__map-label-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact__map-label-text">شركة قوافل الخير</div>
+                <div class="contact__map-label-sub">زليتن، ليبيا</div>
+              </div>
+              <a href="https://www.google.com/maps?q=32.785999999999994,13.240499999999999"
+                 target="_blank" rel="noopener noreferrer"
+                 class="btn btn-primary"
+                 style="margin-right:auto; height:2.5rem; padding:0 1rem; font-size:0.8rem;">
+                فتح في الخريطة
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5">
+                  <line x1="19" y1="12" x2="5" y2="12"/>
+                  <polyline points="12 19 5 12 12 5"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       CTA
+  ============================================ -->
+  <section class="section cta">
+    <div class="cta__dot-pattern"></div>
+    <div class="cta__glow"></div>
+    <div class="container">
+      <div class="cta__content">
+        <div class="section-badge reveal" style="
+          margin:0 auto 1.5rem;
+          border-color:rgba(200,232,232,0.2);
+          background:rgba(255,255,255,0.05);
+        ">
+          <span class="section-badge__dot" style="background:rgba(200,232,232,0.8);"></span>
+          <span class="section-badge__text" style="color:rgba(200,232,232,0.8);">ابدأ الآن</span>
+        </div>
+
+        <h2 class="cta__headline reveal reveal-delay-1">
+          هل أنت مستعد للبدء
+          <span style="
+            background:linear-gradient(to left,#7ab8b8,#c8e8e8);
+            -webkit-background-clip:text; background-clip:text; color:transparent;
+          ">معنا اليوم؟</span>
+        </h2>
+
+        <p class="cta__desc reveal reveal-delay-2">
+          تواصل مع فريق قوافل الخير الآن واحصل على استشارة مجانية
+          وعرض سعر مخصص لاحتياجاتك من المواد الخام
+        </p>
+
+        <div class="cta__actions reveal reveal-delay-3">
+          <a href="tel:0913002595" class="btn-white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/>
+            </svg>
+            اتصل بنا الآن
+          </a>
+          <a href="mailto:info@kawafelalkheer.com.ly" class="btn-ghost-white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            راسلنا بالبريد
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+  ============================================ -->
+  <footer class="footer">
+    <div class="footer__glow"></div>
+    <div class="container">
+      <div class="footer__grid">
+
+        <!-- Brand -->
+        <div>
+          <div class="footer__brand-logo">
+            <img
+              src="logo.png"
+              alt="قوافل الخير"
+              class="footer__brand-logo-img"
+              onerror="this.style.display='none'; document.getElementById('footerLogoFallback').style.display='flex';"
+            />
+            <div class="footer__brand-logo-fallback" id="footerLogoFallback" style="display:none;">خ</div>
+            <div>
+              <span class="footer__brand-name">قوافل الخير</span>
+              <span class="footer__brand-sub">استيراد المواد الخام</span>
+            </div>
+          </div>
+          <p class="footer__brand-desc">
+            شركة ليبية متخصصة في استيراد المواد الخام عالية الجودة،
+            نربط السوق الليبي بأفضل الموردين العالميين بكفاءة واحترافية.
+          </p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="فيسبوك">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a11 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="tel:0913002595" class="footer__social-link" aria-label="واتساب">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.054 23.486a.75.75 0 0 0 .92.92l5.624-1.478A11.953 11.953 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.523-5.188-1.432l-.372-.22-3.862 1.015 1.015-3.741-.242-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+              </svg>
+            </a>
+            <a href="mailto:info@kawafelalkheer.com.ly" class="footer__social-link" aria-label="بريد إلكتروني">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="footer__col-title">روابط سريعة</h4>
+          <ul class="footer__links">
+            <li><a href="#about"    class="footer__link">من نحن</a></li>
+            <li><a href="#services" class="footer__link">خدماتنا</a></li>
+            <li><a href="#products" class="footer__link">منتجاتنا</a></li>
+            <li><a href="#how"      class="footer__link">كيف نعمل</a></li>
+            <li><a href="#contact"  class="footer__link">تواصل معنا</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <h4 class="footer__col-title">خدماتنا</h4>
+          <ul class="footer__links">
+            <li><a href="#services" class="footer__link">استيراد المواد الخام</a></li>
+            <li><a href="#services" class="footer__link">التخليص الجمركي</a></li>
+            <li><a href="#services" class="footer__link">فحص الجودة</a></li>
+            <li><a href="#services" class="footer__link">الشحن الدولي</a></li>
+            <li><a href="#services" class="footer__link">الاستشارات التجارية</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="footer__col-title">معلومات التواصل</h4>
+
+          <div class="footer__contact-item">
+            <div class="footer__contact-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/>
+              </svg>
+            </div>
+            <div class="footer__contact-text">
+              <a href="tel:0913002595">0913002595</a><br/>
+              <a href="tel:0912103189">0912103189</a>
+            </div>
+          </div>
+
+          <div class="footer__contact-item">
+            <div class="footer__contact-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div class="footer__contact-text">
+              <a href="mailto:info@kawafelalkheer.com.ly">
+                info@kawafelalkheer.com.ly
+              </a>
+            </div>
+          </div>
+
+          <div class="footer__contact-item">
+            <div class="footer__contact-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="footer__contact-text">زليتن، ليبيا</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer__bottom">
+        <p class="footer__copy">
+          © 2025 <span>قوافل الخير</span> — جميع الحقوق محفوظة
+        </p>
+        <div class="footer__bottom-links">
+          <a href="#" class="footer__bottom-link">سياسة الخصوصية</a>
+          <a href="#" class="footer__bottom-link">شروط الاستخدام</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ============================================
+       JAVASCRIPT
+  ============================================ -->
+  <script>
+    // ── Navbar scroll ─────────────────────────────
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ── Mobile menu ───────────────────────────────
+    const hamburger  = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+
+    function toggleMenu(force) {
+      menuOpen = force !== undefined ? force : !menuOpen;
+      mobileMenu.classList.toggle('open', menuOpen);
+      const [s1, s2, s3] = hamburger.querySelectorAll('span');
+      if (menuOpen) {
+        s1.style.transform = 'translateY(7px) rotate(45deg)';
+        s2.style.opacity   = '0';
+        s3.style.transform = 'translateY(-7px) rotate(-45deg)';
+      } else {
+        s1.style.transform = '';
+        s2.style.opacity   = '';
+        s3.style.transform = '';
+      }
+    }
+
+    hamburger.addEventListener('click', () => toggleMenu());
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+
+    document.addEventListener('click', (e) => {
+      if (menuOpen && !navbar.contains(e.target) && !mobileMenu.contains(e.target)) {
+        toggleMenu(false);
+      }
+    });
+
+    // ── Scroll reveal ─────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '-40px 0px' });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    // ── Smooth scroll ─────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          const top = target.getBoundingClientRect().top
+                    + window.scrollY
+                    - navbar.offsetHeight - 16;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ── Active nav highlight ──────────────────────
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.navbar__link');
+    const secObs   = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            const active = link.getAttribute('href') === `#${id}`;
+            link.style.color = active ? 'var(--accent)' : '';
+          });
+        }
+      });
+    }, { threshold: 0.45 });
+    sections.forEach(s => secObs.observe(s));
+
+    // ── Stats counter ─────────────────────────────
+    const arabicDigits = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+    const toArabic = n => String(n).replace(/\d/g, d => arabicDigits[d]);
+
+    function animateCounter(el) {
+      const original = el.textContent.trim();
+      const target   = parseInt(original.replace(/\D/g, ''));
+      if (!target) return;
+      const hasPlus  = original.includes('+');
+      const duration = 1800;
+      const start    = performance.now();
+      const ease     = t => 1 - Math.pow(1 - t, 3);
+
+      (function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const v = Math.round(ease(p) * target);
+        el.textContent = (hasPlus ? '+' : '') + toArabic(v);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = original;
+      })(start);
+    }
+
+    const statsObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          statsObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stats__number').forEach(el => statsObs.observe(el));
+
+    // ── Hero parallax on mouse ────────────────────
+    const floatCards = document.querySelectorAll('.hero__float-card');
+    if (floatCards.length) {
+      document.addEventListener('mousemove', (e) => {
+        const cx = (e.clientX / window.innerWidth  - 0.5) * 2;
+        const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+        floatCards.forEach((card, i) => {
+          const d = (i + 1) * 5;
+          card.style.transform = `translate(${-cx * d}px, ${-cy * d}px)`;
+        });
+      });
+    }
+
+    // ── Logo click → scroll top ───────────────────
+    document.getElementById('logoLink').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ── Product card visual scale on hover ────────
+    document.querySelectorAll('.product-card').forEach(card => {
+      const visual = card.querySelector('.product-card__visual svg');
+      card.addEventListener('mouseenter', () => {
+        if (visual) { visual.style.transform = 'scale(1.15)'; visual.style.transition = 'transform 0.3s'; }
+      });
+      card.addEventListener('mouseleave', () => {
+        if (visual) { visual.style.transform = ''; }
+      });
+    });
+  </script>
+
+</body>
+</html>
